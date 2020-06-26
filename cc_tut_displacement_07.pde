@@ -1,3 +1,7 @@
+import controlP5.*;
+
+ControlP5 gui; 
+
 float x1;
 float x2;
 float y1;
@@ -15,9 +19,22 @@ void setup() {
   y2 = height/2;
   
   noiseSeed(66666);
+  
+  gui = new ControlP5(this);
+  
+  gui.addSlider("nLines")
+  .setPosition(100, 100)
+  .setRange(1, 75)
+  .setSize(200, 100);
+  
+  drawPoints();
 }
 
 void draw() {
+
+}
+
+void drawPoints() {
   background(0);
   noFill();
   stroke(255);
@@ -27,7 +44,6 @@ void draw() {
   pushMatrix();
   translate(x1, y1);
   for(int l = 0; l < nLines; l++) {
-    //beginShape();
     xoff = 0;
     if(l == 0) {
       strokeWeight(2);
@@ -45,11 +61,11 @@ void draw() {
       xoff += 0.001;
     }
     noFill();
-    
-    //endShape();
+
   }
   popMatrix();
-  
-  noLoop();
-  //println(frameRate);
+}
+
+public void controlEvent(ControlEvent theEvent) {
+  drawPoints();
 }
